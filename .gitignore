@@ -7,5 +7,3 @@ node_modules
 out/
 *.jar
 pom.xml
-
-package-lock.json
