@@ -5,3 +5,7 @@
 [![Clojars download_badge](https://img.shields.io/clojars/dt/taipei.404/mate?color=opal)](https://clojars.org/taipei.404/mate)
 
 Functions which I wish were in the Clojure standard library.
+
+## License
+
+This project is distributed under the Eclipse Public License v2.0.
