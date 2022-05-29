@@ -6,8 +6,8 @@
 (defn- resource-path
   "Returns the path of a resource.
 
-   If the resource name starts with a './', the path is built using
-   the parent directory of the namespace from which this macro is invoked."
+   If `resource-name` starts with a './', the path is built
+   using the parent directory of `namespace-obj`."
   [namespace-obj resource-name]
   (if (str/starts-with? resource-name "./")
     (let [namespace-str (name (ns-name namespace-obj))
@@ -34,12 +34,13 @@
          resource-content (slurp resource)]
      (apply f resource-content args))))
 
-#_(inline-resource* *ns* "./test-resource.txt" identity)
+#_(inline-resource* *ns* "./test-resource.txt")
 #_(inline-resource* *ns* "./test-resource.txt" str/upper-case)
 
 #?(:clj
    (defmacro inline-resource
-     "Inlines the content of a resource at 'macro expansion' time."
+     "Inlines the content of a resource at \"macro expansion\" time,
+      optionally transformed by `f & args` in the same way that using `clojure.core/update`."
      ([resource-name]
       (inline-resource* *ns* (eval resource-name)))
      ([resource-name f & args]
