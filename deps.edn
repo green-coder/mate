@@ -18,7 +18,7 @@
                       :exec-args    {:sync-pom    true
                                      :group-id    "taipei.404"
                                      :artifact-id "mate"
-                                     :version     "0.0.1"
+                                     :version     "0.0.2"
                                      :jar         "mate.jar"}}}}
 ;; Memo for deploying a new release:
 ;; - Change the version above, then build the jar:

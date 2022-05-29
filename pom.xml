@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>jar</packaging>
+  <groupId>taipei.404</groupId>
+  <artifactId>mate</artifactId>
+  <version>0.0.2</version>
+  <name>mate</name>
+  <description>Useful functions, some of which I wish were in the Clojure standard library.</description>
+  <url>https://github.com/green-coder/mate</url>
+  <scm>
+    <url>https://github.com/green-coder/mate</url>
+    <connection>scm:git:git://github.com/green-coder/mate.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/green-coder/mate.git</developerConnection>
+    <tag>made-in-taiwan</tag>
+  </scm>
+  <licenses>
+    <license>
+      <name>Eclipse Public License v2.0</name>
+      <url>http://www.eclipse.org/legal/epl-v20.html</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>green-coder</id>
+      <name>Vincent Cantin</name>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>clojure</artifactId>
+      <version>1.10.3</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+  </build>
+  <repositories>
+    <repository>
+      <id>clojars</id>
+      <url>https://repo.clojars.org/</url>
+    </repository>
+  </repositories>
+</project>
