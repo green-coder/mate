@@ -1,20 +1,23 @@
 (ns mate.io-test
   (:require [clojure.test :refer [deftest is testing]]
-            [mate.io :as mio]))
+            [mate.io :as mio]
+            #?(:clj [clojure.data.json :as json])))
 
 (deftest inline-resource-test
-  (testing "if we can find the resource using a relative path."
-    (is (= (mio/inline-resource (str "test-re" "source.txt"))
+  (testing "Finds the resource using a relative path."
+    (is (= (mio/inline-resource (str "./" "test-resource.txt"))
            "Content of test-resource.txt")))
 
-  (testing "if we can find the resource using an absolute path."
-    (is (= (mio/inline-resource (str "/mate/test-re" "source.txt"))
+  (testing "Finds the resource using an absolute path."
+    (is (= (mio/inline-resource (str "mate/" "test-resource.txt"))
            "Content of test-resource.txt")))
 
-  (testing "if we can find the JSON resource using a relative path."
-    (is (= (mio/inline-json-resource (str "test-json-re" "source.txt"))
-           [{:a 1} "hello"])))
+  (testing "Reads and transform the content using multiple arguments."
+    (is (= (mio/inline-resource "./test-resource.txt"
+                                str " FOO" " BAR")
+           "Content of test-resource.txt FOO BAR")))
 
-  (testing "if we can find the JSON resource using an absolute path."
-    (is (= (mio/inline-json-resource (str "/mate/test-json-re" "source.txt"))
+  (testing "Reads the JSON content as string and parse it to get a Clojure data structure."
+    (is (= (mio/inline-resource "./test-resource.json"
+                                json/read-json)
            [{:a 1} "hello"]))))
