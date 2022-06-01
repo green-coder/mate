@@ -22,17 +22,18 @@
 #_(resource-path *ns* "foo")
 #_(resource-path *ns* "./foo")
 
-(defn inline-resource*
-  ([namespace-obj resource-name]
-   (inline-resource* namespace-obj resource-name identity))
-  ([namespace-obj resource-name f & args]
-   (let [resource-name (eval resource-name)
-         path (resource-path namespace-obj resource-name)
-         resource (io/resource path)
-         _ (assert (some? resource)
-                   (str "Resource at path \"" path "\" not found."))
-         resource-content (slurp resource)]
-     (apply f resource-content args))))
+#?(:clj
+   (defn inline-resource*
+     ([namespace-obj resource-name]
+      (inline-resource* namespace-obj resource-name identity))
+     ([namespace-obj resource-name f & args]
+      (let [resource-name (eval resource-name)
+            path (resource-path namespace-obj resource-name)
+            resource (io/resource path)
+            _ (assert (some? resource)
+                      (str "Resource at path \"" path "\" not found."))
+            resource-content (slurp resource)]
+        (apply f resource-content args)))))
 
 #_(inline-resource* *ns* "./test-resource.txt")
 #_(inline-resource* *ns* "./test-resource.txt" str/upper-case)
