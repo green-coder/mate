@@ -3,6 +3,12 @@
   (:refer-clojure :exclude [group-by])
   (:require [clojure.core :as cc]))
 
+(defmacro implies
+  "`(implies x y)` expands to `(or (not x) y)` while being more
+   descriptive of the logical intent."
+  [x y]
+  `(or (not ~x) ~y))
+
 (defn seq-indexed
   "Returns an indexed sequence from the collection `coll`."
   [coll]

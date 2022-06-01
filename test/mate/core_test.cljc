@@ -2,6 +2,12 @@
   (:require [clojure.test :refer [deftest testing is are]]
             [mate.core :as m]))
 
+(deftest implies-test
+  (is (true?  (m/implies true  true)))
+  (is (false? (m/implies true  false)))
+  (is (true?  (m/implies false true)))
+  (is (true?  (m/implies false false))))
+
 (deftest seq-index-test
   (is (= (m/seq-indexed [:a :a :b :a :b])
          '([0 :a] [1 :a] [2 :b] [3 :a] [4 :b]))))
