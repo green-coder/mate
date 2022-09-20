@@ -1,16 +1,16 @@
 {:paths   ["src"]
  :deps    {} ;; This part intentionally left blank
  :aliases {:dev      {:extra-deps {org.clojure/clojure       {:mvn/version "1.11.1"}
-                                   org.clojure/clojurescript {:mvn/version "1.11.54"}}}
+                                   org.clojure/clojurescript {:mvn/version "1.11.60"}}}
            :test     {:extra-paths ["test" "test-resource"]
-                      :extra-deps  {lambdaisland/kaocha           {:mvn/version "1.66.1034"}
-                                    lambdaisland/kaocha-cljs      {:mvn/version "1.0.107"}
-                                    lambdaisland/kaocha-junit-xml {:mvn/version "0.0.76"}
+                      :extra-deps  {lambdaisland/kaocha           {:mvn/version "1.70.1086"}
+                                    lambdaisland/kaocha-cljs      {:mvn/version "1.4.130"}
+                                    lambdaisland/kaocha-junit-xml {:mvn/version "1.16.98"}
                                     org.clojure/test.check        {:mvn/version "1.1.1"}
                                     org.clojure/data.json         {:mvn/version "2.4.0"}}}
 
            ; clojure -M:outdated --upgrade
-           :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "1.7.798"}}
+           :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.1.927"}}
                       :main-opts  ["-m" "antq.core"]}
 
            :depstar  {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
@@ -18,7 +18,7 @@
                       :exec-args    {:sync-pom    true
                                      :group-id    "taipei.404"
                                      :artifact-id "mate"
-                                     :version     "0.0.3"
+                                     :version     "0.0.4"
                                      :jar         "mate.jar"}}}}
 ;; Memo for deploying a new release:
 ;; - Change the version above, then build the jar:

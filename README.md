@@ -9,6 +9,7 @@ Useful functions, some of which I wish were in the Clojure standard library.
 Examples of usage:
 - [test/mate/core_test.cljc](test/mate/core_test.cljc)
 - [test/mate/io_test.cljc](test/mate/io_test.cljc)
+- [test/mate/re_frame_test.cljc](test/mate/re_frame_test.cljc)
 
 ## License
 

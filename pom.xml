@@ -4,7 +4,7 @@
   <packaging>jar</packaging>
   <groupId>taipei.404</groupId>
   <artifactId>mate</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
   <name>mate</name>
   <description>Useful functions, some of which I wish were in the Clojure standard library.</description>
   <url>https://github.com/green-coder/mate</url>

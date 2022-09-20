@@ -1,5 +1,12 @@
 ## Unreleased
 
+## v0.0.4
+
+Added namespace `mate.re-frame` with utility functions useful for composing functions
+on Re-frame effects via the `->` thread macro.
+
+See `/test/mate/re_frame_test.cljc` for example of usage.
+
 ## v0.0.3
 
 ### Added
