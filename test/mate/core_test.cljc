@@ -42,3 +42,16 @@
     (is (= (m/index-by first second coll)
            {:a 4
             :b 5}))))
+
+(deftest ungroup-keys-test
+  (is (= {:a      1
+          :b      1
+          :c      2
+          :d      3
+          :e      3
+          {:f :g} 4}
+         (m/ungroup-keys {:a       "this value will be overwritten"
+                          [:a :b]  1
+                          :c       2
+                          #{:d :e} 3
+                          {:f :g}  4}))))

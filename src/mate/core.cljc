@@ -50,3 +50,17 @@
                   (assoc! ret (kf x) (vf x)))
                 (transient {}))
         persistent!)))
+
+(defn ungroup-keys
+  "From a hashmap where the keys are grouped using sequential collections (lists, vectors ...) or using sets,
+   this function returns a hashmap where those keys are ungrouped."
+  [m]
+  (into {}
+        (mapcat (fn [[k v]]
+                  (if (or (sequential? k)
+                          (set? k))
+                    (mapv (fn [k-item]
+                            [k-item v])
+                          k)
+                    [[k v]])))
+        m))
