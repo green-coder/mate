@@ -14,17 +14,19 @@
   [effects f & args]
   (apply update effects :db f args))
 
-(defn conj-fx
-  "Appends an effect to the value of `:fx` in the `effects` hashmap."
-  [effects fx]
-  (cond-> effects
-    (some? fx)
-    (update :fx (fnil conj []) fx)))
-
 (defn into-fx
-  "Appends multiple effects to the value of `:fx` in the `effects` hashmap."
+  "Appends a collection of effects to the value of `:fx` in the `effects` hashmap."
   [effects fxs]
   (update effects :fx (fnil into []) (remove nil?) fxs))
+
+(defn conj-fx
+  "Appends one or more effects to the value of `:fx` in the `effects` hashmap."
+  ([effects fx]
+   (cond-> effects
+     (some? fx)
+     (update :fx (fnil conj []) fx)))
+  ([effects fx & fxs]
+   (into-fx effects (cons fx fxs))))
 
 (defn conj-fx-using-db
   "Invoke `f` with the value of `:db` from the `effects` hashmap and conj its result

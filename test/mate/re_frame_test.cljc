@@ -28,14 +28,12 @@
   [[:save-to-royal-storage (:queen-browsing-history db)]
    [:one-minute-silence]])
 
-(deftest conj-fx-test
-  (is (= {:db {:foo "bar"}}
-         (-> {:db {:foo "bar"}}
-             (mr/conj-fx nil))))
-  (is (= {:db {:foo "bar"}
-          :fx [[:foo-fx 1]]}
-         (-> {:db {:foo "bar"}}
-             (mr/conj-fx [:foo-fx 1])))))
+(deftest update-db-test
+  (is (= {:db {:foo "bar"
+               :a {:b 1}}}
+         (-> {:db {}}
+             (mr/update-db assoc :foo "bar")
+             (mr/update-db update-in [:a :b] (fnil inc 0))))))
 
 (deftest into-fx-test
   (is (= {:db {:foo "bar"}
@@ -53,6 +51,21 @@
              (mr/into-fx [[:foo-fx 1]
                           nil
                           [:foo-fx 2]])))))
+
+(deftest conj-fx-test
+  (is (= {:db {:foo "bar"}}
+         (-> {:db {:foo "bar"}}
+             (mr/conj-fx nil))))
+  (is (= {:db {:foo "bar"}
+          :fx [[:foo-fx 1]]}
+         (-> {:db {:foo "bar"}}
+             (mr/conj-fx [:foo-fx 1]))))
+  (is (= {:db {:foo "bar"}
+          :fx [[:foo-fx 1]
+               [:bar-fx 2]]}
+         (-> {:db {:foo "bar"}}
+             (mr/conj-fx [:foo-fx 1]
+                         [:bar-fx 2])))))
 
 (deftest usage-example
   (let [db {:foo "bar"}]
