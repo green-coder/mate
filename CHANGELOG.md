@@ -1,11 +1,18 @@
 ## Unreleased
 
+## v0.0.6
+
+### Added
+
+- Added tests.
+- Added n-arity on function `mate.re-frame/conj-fx`.
+
 ## v0.0.5
 
 ### Added
 
-- `mate.core/ungroup-keys` and its test.
-- `mate.re-frame/into-fx` and `mate.re-frame/into-fx-using-db`, and some tests.
+- New function `mate.core/ungroup-keys` and its test.
+- New functions `mate.re-frame/into-fx` and `mate.re-frame/into-fx-using-db`, and some tests.
 
 ## v0.0.4
 
