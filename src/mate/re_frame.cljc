@@ -7,21 +7,33 @@
 
 ;; This pattern hopes to encourage:
 ;; - grouping together different changes inside the event-handler, reducing the usage of `{:fx [[:dispatch next-thing-to-do-event]]}`,
-;; - defining the logic in top-level functions outside of the `(rf/reg-fx ...)` expressions.
+;; - defining the logic in top-level functions outside of the `(rf/reg-event-fx ...)` expressions.
 
 (defn update-db
-  "Update the `:db` in the `effects` structure."
+  "Update the value of `:db` in the `effects` hashmap."
   [effects f & args]
   (apply update effects :db f args))
 
 (defn conj-fx
-  "Appends an effect to `:fx` the `effects` structure."
+  "Appends an effect to the value of `:fx` in the `effects` hashmap."
   [effects fx]
   (cond-> effects
     (some? fx)
     (update :fx (fnil conj []) fx)))
 
+(defn into-fx
+  "Appends multiple effects to the value of `:fx` in the `effects` hashmap."
+  [effects fxs]
+  (update effects :fx (fnil into []) (remove nil?) fxs))
+
 (defn conj-fx-using-db
-  "Invoke `f` with the `:db` in `effects` and appends it to its `:fx`."
+  "Invoke `f` with the value of `:db` from the `effects` hashmap and conj its result
+   to the `:fx` collection in `effects`."
   [effects f & args]
   (conj-fx effects (apply f (:db effects) args)))
+
+(defn into-fx-using-db
+  "Invoke `f` with the value of `:db` from the `effects` hashmap and appends its resulting collection
+   into the `:fx` collection in `effects`."
+  [effects f & args]
+  (into-fx effects (apply f (:db effects) args)))

@@ -24,6 +24,36 @@
       (mr/update-db assoc :foo foo-value)
       (mr/conj-fx [:foo-system-changed])))
 
+(defn- save-to-royal-storage [db]
+  [[:save-to-royal-storage (:queen-browsing-history db)]
+   [:one-minute-silence]])
+
+(deftest conj-fx-test
+  (is (= {:db {:foo "bar"}}
+         (-> {:db {:foo "bar"}}
+             (mr/conj-fx nil))))
+  (is (= {:db {:foo "bar"}
+          :fx [[:foo-fx 1]]}
+         (-> {:db {:foo "bar"}}
+             (mr/conj-fx [:foo-fx 1])))))
+
+(deftest into-fx-test
+  (is (= {:db {:foo "bar"}
+          :fx []}
+         (-> {:db {:foo "bar"}}
+             (mr/into-fx nil))))
+  (is (= {:db {:foo "bar"}
+          :fx []}
+         (-> {:db {:foo "bar"}}
+             (mr/into-fx [nil]))))
+  (is (= {:db {:foo "bar"}
+          :fx [[:foo-fx 1]
+               [:foo-fx 2]]}
+         (-> {:db {:foo "bar"}}
+             (mr/into-fx [[:foo-fx 1]
+                          nil
+                          [:foo-fx 2]])))))
+
 (deftest usage-example
   (let [db {:foo "bar"}]
     (is (= {:db {:foo "new-bar"
@@ -35,10 +65,13 @@
                  [:notification {:level :info
                                  :message "Alice logged in"}]
                  [:http-get 1 [:picture-url :accepted-end-user-agreement? :preferred-books]]
+                 [:save-to-royal-storage (:queen-browsing-history db)]
+                 [:one-minute-silence]
                  [:foo-system-changed]]}
            (-> {:db db}
                (mr/conj-fx [:sound :login-success])
                (mr/update-db store-user-in-db 1 "Alice" 123 456)
                (mr/conj-fx-using-db user-logged-in-notification-fx)
                (mr/conj-fx-using-db load-user-data-fx)
+               (mr/into-fx-using-db save-to-royal-storage)
                (complicated-handler "new-bar"))))))
