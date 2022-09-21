@@ -1,6 +1,15 @@
 ## Unreleased
 
+## v0.0.5
+
+### Added
+
+- `mate.core/ungroup-keys` and its test.
+- `mate.re-frame/into-fx` and `mate.re-frame/into-fx-using-db`, and some tests.
+
 ## v0.0.4
+
+### Added
 
 Added namespace `mate.re-frame` with utility functions useful for composing functions
 on Re-frame effects via the `->` thread macro.
