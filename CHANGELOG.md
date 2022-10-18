@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Added
+
+- Thread macro `if->`.
+
 ## v0.0.6
 
 ### Added

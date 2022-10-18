@@ -15,6 +15,23 @@
 (deftest comp->-test
   (is (= ((m/comp-> inc str) 2) "3")))
 
+(deftest if->-test
+  (is (= [:a #_:b
+          :c
+          #_:d #_:e :f :g]
+         (-> []
+             (m/if-> true
+               (conj :a)
+               (conj :b))
+             (conj :c)
+             (m/if-> false
+               (->
+                 (conj :d)
+                 (conj :e))
+               (->
+                 (conj :f)
+                 (conj :g)))))))
+
 (deftest group-by-test
   (let [coll [[:a 1] [:a 2] [:b 3] [:a 4] [:b 5]]]
     (is (= (m/group-by first coll)

@@ -19,6 +19,14 @@
   [& args]
   `(comp ~@(reverse args)))
 
+(defmacro if->
+  "If branching threading macro."
+  [x test then-form else-form]
+  `(let [val# ~x]
+     (if ~test
+       (-> val# ~then-form)
+       (-> val# ~else-form))))
+
 (defn group-by
   "Same as clojure.core/group-by, but with some handy new arities which apply
    custom map & reduce operations to the elements grouped together under the same key."
