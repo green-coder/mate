@@ -27,6 +27,13 @@
        (-> val# ~then-form)
        (-> val# ~else-form))))
 
+(defmacro let->
+  "Let threading macro."
+  [x bindings body]
+  `(let [val# ~x]
+     (let ~bindings
+       (-> val# ~body))))
+
 (defn group-by
   "Same as clojure.core/group-by, but with some handy new arities which apply
    custom map & reduce operations to the elements grouped together under the same key."

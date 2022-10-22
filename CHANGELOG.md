@@ -3,6 +3,7 @@
 ### Added
 
 - Thread macro `if->`.
+- Thread macro `let->`.
 
 ## v0.0.6
 

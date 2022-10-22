@@ -32,6 +32,18 @@
                  (conj :f)
                  (conj :g)))))))
 
+(deftest let->-test
+  (is (= [:a :b :c :d]
+         (-> []
+             (m/let-> [a :a]
+               (conj a))
+             (m/let-> [b :b
+                       c :c]
+               (->
+                 (conj b)
+                 (conj c)))
+             (conj :d)))))
+
 (deftest group-by-test
   (let [coll [[:a 1] [:a 2] [:b 3] [:a 4] [:b 5]]]
     (is (= (m/group-by first coll)
