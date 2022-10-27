@@ -1,5 +1,7 @@
 ## Unreleased
 
+## v0.0.8
+
 ### Added
 
 - `re-with-flags` (Cljs)

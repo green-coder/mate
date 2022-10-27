@@ -3,7 +3,7 @@
  :aliases {:dev      {:extra-deps {org.clojure/clojure       {:mvn/version "1.11.1"}
                                    org.clojure/clojurescript {:mvn/version "1.11.60"}}}
            :test     {:extra-paths ["test" "test-resource"]
-                      :extra-deps  {lambdaisland/kaocha           {:mvn/version "1.70.1086"}
+                      :extra-deps  {lambdaisland/kaocha           {:mvn/version "1.71.1119"}
                                     lambdaisland/kaocha-cljs      {:mvn/version "1.4.130"}
                                     lambdaisland/kaocha-junit-xml {:mvn/version "1.16.98"}
                                     org.clojure/test.check        {:mvn/version "1.1.1"}
@@ -18,7 +18,7 @@
                       :exec-args    {:sync-pom    true
                                      :group-id    "taipei.404"
                                      :artifact-id "mate"
-                                     :version     "0.0.7"
+                                     :version     "0.0.8"
                                      :jar         "mate.jar"}}}}
 ;; Memo for deploying a new release:
 ;; - Change the version above, then build the jar:
