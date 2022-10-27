@@ -14,6 +14,52 @@
   [coll]
   (map-indexed vector coll))
 
+#?(:clj
+   (defn indexed-re-groups
+     "Same as re-groups, but returns pair(s) `[index group]` instead of group(s)."
+     [m]
+     (let [group-count (.groupCount m)]
+       (if (zero? group-count)
+         [(.start m) (.group m)]
+         (loop [result []
+                index 0]
+           (if (<= index group-count)
+             (recur (conj result [(.start m index) (.group m index)])
+                    (inc index))
+             result))))))
+
+#?(:cljs
+   (defn re-with-flags
+     "Returns a new RegEx with additional flags."
+     [^js re flags]
+     (js/RegExp. (.-source re) (str (.-flags re) flags))))
+
+#?(:clj
+   (defn indexed-re-find
+     "Same as re-find, but returns a pair `[index match]` when there is a match."
+     ([^java.util.regex.Matcher m]
+      (when (.find m)
+        (indexed-re-groups m)))
+     ([^java.util.regex.Pattern re s]
+      (let [m (re-matcher re s)]
+        (indexed-re-find m))))
+
+   :cljs
+   (defn indexed-re-find
+     "Same as re-find, but returns a pair `[index match]` when there is a match."
+     [^js re s]
+     (when-some [^array m (.exec re s)]
+       (let [group-count (count m)]
+         (if (== group-count 1)
+           [(.-index m) (aget m 0)]
+           (loop [result []
+                  index 0]
+             (if (< index group-count)
+               (recur (conj result [(some-> (.-indices m) (aget index 0))
+                                    (aget m index)])
+                      (inc index))
+               result)))))))
+
 (defmacro comp->
   "Same as `comp` but with the arguments in reverse order."
   [& args]

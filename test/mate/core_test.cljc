@@ -8,9 +8,22 @@
   (is (true?  (m/implies false true)))
   (is (true?  (m/implies false false))))
 
-(deftest seq-index-test
+(deftest seq-indexed-test
   (is (= (m/seq-indexed [:a :a :b :a :b])
          '([0 :a] [1 :a] [2 :b] [3 :a] [4 :b]))))
+
+(deftest indexed-re-find
+  ;; Test with no subgroup
+  (is (= [4 "${aaa}"]
+         (m/indexed-re-find #"\$\{[^\{\}]*\}" "xxx ${aaa} ${bbb} yyy")))
+
+  ;; Test with 1 subgroup
+  (let [re (-> #"\$\{([^\{\}]*)\}")
+        ;; flag "d" generate indices for substring matches in Javascript.
+        ;; See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#advanced_searching_with_flags
+        #?@(:cljs [re (m/re-with-flags re "d")])]
+    (is (= [[4 "${aaa}"] [6 "aaa"]]
+           (m/indexed-re-find re "xxx ${aaa} ${bbb} yyy")))))
 
 (deftest comp->-test
   (is (= ((m/comp-> inc str) 2) "3")))

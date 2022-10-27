@@ -1,5 +1,11 @@
 ## Unreleased
 
+### Added
+
+- `re-with-flags` (Cljs)
+- `indexed-re-find` (Clj & Cljs)
+- `indexed-re-groups` (Clj).
+
 ## v0.0.7
 
 ### Added
