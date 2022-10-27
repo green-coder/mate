@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/clojure:tools-deps-1.10.1.763-node
+      - image: circleci/clojure:tools-deps-1.11.1.1113-bullseye-node
     working_directory: ~/mate
     steps:
       - checkout:
