@@ -9,8 +9,8 @@
   (is (true?  (m/implies false false))))
 
 (deftest seq-indexed-test
-  (is (= (m/seq-indexed [:a :a :b :a :b])
-         '([0 :a] [1 :a] [2 :b] [3 :a] [4 :b]))))
+  (is (= '([0 :a] [1 :a] [2 :b] [3 :a] [4 :b])
+         (m/seq-indexed [:a :a :b :a :b]))))
 
 (deftest indexed-re-find
   ;; Test with no subgroup
@@ -26,7 +26,8 @@
            (m/indexed-re-find re "xxx ${aaa} ${bbb} yyy")))))
 
 (deftest comp->-test
-  (is (= ((m/comp-> inc str) 2) "3")))
+  (is (= "3"
+         ((m/comp-> inc str) 2))))
 
 (deftest if->-test
   (is (= [:a #_:b
@@ -59,31 +60,31 @@
 
 (deftest group-by-test
   (let [coll [[:a 1] [:a 2] [:b 3] [:a 4] [:b 5]]]
-    (is (= (m/group-by first coll)
-           {:a [[:a 1] [:a 2] [:a 4]]
-            :b [[:b 3] [:b 5]]}))
+    (is (= {:a [[:a 1] [:a 2] [:a 4]]
+            :b [[:b 3] [:b 5]]}
+           (m/group-by first coll)))
 
-    (is (= (m/group-by first second coll)
-           {:a [1 2 4]
-            :b [3 5]}))
+    (is (= {:a [1 2 4]
+            :b [3 5]}
+           (m/group-by first second coll)))
 
-    (is (= (m/group-by first second + coll)
-           {:a 7
-            :b 8}))
+    (is (= {:a 7
+            :b 8}
+           (m/group-by first second + coll)))
 
-    (is (= (m/group-by first second + 10 coll)
-           {:a 17
-            :b 18}))))
+    (is (= {:a 17
+            :b 18}
+           (m/group-by first second + 10 coll)))))
 
 (deftest index-by-test
   (let [coll [[:a 1] [:a 2] [:b 3] [:a 4] [:b 5]]]
-    (is (= (m/index-by first coll)
-           {:a [:a 4]
-            :b [:b 5]}))
+    (is (= {:a [:a 4]
+            :b [:b 5]}
+           (m/index-by first coll)))
 
-    (is (= (m/index-by first second coll)
-           {:a 4
-            :b 5}))))
+    (is (= {:a 4
+            :b 5}
+           (m/index-by first second coll)))))
 
 (deftest ungroup-keys-test
   (is (= {:a      1
