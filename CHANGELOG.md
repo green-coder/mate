@@ -1,5 +1,12 @@
 ## Unreleased
 
+## v0.0.9
+
+### Renamed (breaking change)
+
+- `indexed-re-find` -> `re-find-indexed` for consistency with `map-indexed` and `seq-indexed`.
+- `indexed-re-group` -> `re-group-indexed` for the same reason.
+
 ## v0.0.8
 
 ### Added

@@ -15,7 +15,7 @@
   (map-indexed vector coll))
 
 #?(:clj
-   (defn indexed-re-groups
+   (defn re-groups-indexed
      "Same as re-groups, but returns pair(s) `[index group]` instead of group(s)."
      [m]
      (let [group-count (.groupCount m)]
@@ -35,17 +35,17 @@
      (js/RegExp. (.-source re) (str (.-flags re) flags))))
 
 #?(:clj
-   (defn indexed-re-find
+   (defn re-find-indexed
      "Same as re-find, but returns a pair `[index match]` when there is a match."
      ([^java.util.regex.Matcher m]
       (when (.find m)
-        (indexed-re-groups m)))
+        (re-groups-indexed m)))
      ([^java.util.regex.Pattern re s]
       (let [m (re-matcher re s)]
-        (indexed-re-find m))))
+        (re-find-indexed m))))
 
    :cljs
-   (defn indexed-re-find
+   (defn re-find-indexed
      "Same as re-find, but returns a pair `[index match]` when there is a match."
      [^js re s]
      (when-some [^array m (.exec re s)]

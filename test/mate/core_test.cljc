@@ -12,10 +12,10 @@
   (is (= '([0 :a] [1 :a] [2 :b] [3 :a] [4 :b])
          (m/seq-indexed [:a :a :b :a :b]))))
 
-(deftest indexed-re-find
+(deftest re-find-indexed-test
   ;; Test with no subgroup
   (is (= [4 "${aaa}"]
-         (m/indexed-re-find #"\$\{[^\{\}]*\}" "xxx ${aaa} ${bbb} yyy")))
+         (m/re-find-indexed #"\$\{[^\{\}]*\}" "xxx ${aaa} ${bbb} yyy")))
 
   ;; Test with 1 subgroup
   (let [re (-> #"\$\{([^\{\}]*)\}")
@@ -23,7 +23,7 @@
         ;; See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#advanced_searching_with_flags
         #?@(:cljs [re (m/re-with-flags re "d")])]
     (is (= [[4 "${aaa}"] [6 "aaa"]]
-           (m/indexed-re-find re "xxx ${aaa} ${bbb} yyy")))))
+           (m/re-find-indexed re "xxx ${aaa} ${bbb} yyy")))))
 
 (deftest comp->-test
   (is (= "3"
