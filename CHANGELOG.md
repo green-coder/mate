@@ -1,5 +1,7 @@
 ## Unreleased
 
+- New function `mate.core/mapcat-indexed` and its tests.
+
 ## v0.0.9
 
 ### Renamed (breaking change)

@@ -12,6 +12,15 @@
   (is (= '([0 :a] [1 :a] [2 :b] [3 :a] [4 :b])
          (m/seq-indexed [:a :a :b :a :b]))))
 
+(deftest mapcat-indexed-test
+  (is (= '[:a 0 :b 1 :c 2]
+         (into []
+               (m/mapcat-indexed (fn [index x] [x index]))
+               [:a :b :c])))
+  (is (= '(:a 0 :b 1 :c 2)
+         (m/mapcat-indexed (fn [index x] [x index])
+                           [:a :b :c]))))
+
 (deftest re-find-indexed-test
   ;; Test with no subgroup
   (is (= [4 "${aaa}"]

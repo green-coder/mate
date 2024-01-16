@@ -14,6 +14,16 @@
   [coll]
   (map-indexed vector coll))
 
+(defn mapcat-indexed
+  "A composition of map-indexed and cat."
+  ([f]
+   (comp (map-indexed f)
+         cat))
+  ([f coll]
+   (->> coll
+        (map-indexed f)
+        (apply concat))))
+
 #?(:clj
    (defn re-groups-indexed
      "Same as re-groups, but returns pair(s) `[index group]` instead of group(s)."
