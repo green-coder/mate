@@ -67,6 +67,16 @@
                  (conj c)))
              (conj :d)))))
 
+(deftest apply->-test
+  (is (= [:a :b :c :d]
+         (-> [:a]
+             (m/apply-> conj :b [:c :d])))))
+
+(deftest apply->>-test
+  (is (= [:a :b :c :d]
+         (-> [:c :d]
+             (m/apply->> conj [:a] :b)))))
+
 (deftest group-by-test
   (let [coll [[:a 1] [:a 2] [:b 3] [:a 4] [:b 5]]]
     (is (= {:a [[:a 1] [:a 2] [:a 4]]

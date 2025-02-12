@@ -90,6 +90,16 @@
      (let ~bindings
        (-> val# ~body))))
 
+(defmacro apply->
+  "Apply threading macro."
+  [x f & args]
+  `(apply ~f ~x ~@args))
+
+(defmacro apply->>
+  "Apply on coll threading macro."
+  [coll f & args]
+  `(apply ~f ~@args ~coll))
+
 (defn group-by
   "Same as clojure.core/group-by, but with some handy new arities which apply
    custom map & reduce operations to the elements grouped together under the same key."
