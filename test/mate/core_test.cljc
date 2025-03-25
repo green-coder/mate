@@ -77,6 +77,20 @@
          (-> [:c :d]
              (m/apply->> conj [:a] :b)))))
 
+(deftest partial->-test
+  (is (= [1 2 3]
+         (-> 1
+             ((m/partial-> vector 2 3)))))
+
+  (is (= [[1 10] [2 10] [3 10]]
+         (->> [1 2 3]
+              (mapv (m/partial-> vector 10))))))
+
+(deftest partial->>-test
+  (is (= [1 2 3]
+         (->> 3
+             ((m/partial->> vector 1 2))))))
+
 (deftest group-by-test
   (let [coll [[:a 1] [:a 2] [:b 3] [:a 4] [:b 5]]]
     (is (= {:a [[:a 1] [:a 2] [:a 4]]

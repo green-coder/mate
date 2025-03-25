@@ -100,6 +100,21 @@
   [coll f & args]
   `(apply ~f ~@args ~coll))
 
+(defn partial->
+  ""
+  [f & args]
+  (fn [x]
+    (apply f x args)))
+
+(defn partial->>
+  ""
+  ([f a] (fn [x] (f a x)))
+  ([f a b] (fn [x] (f a b x)))
+  ([f a b c] (fn [x] (f a b c x)))
+  ([f a b c d] (fn [x] (f a b c d x)))
+  ([f a b c d e] (fn [x] (f a b c d e x)))
+  ([f a b c d e & more] (fn [x] (apply f a b c d e (concat more [x])))))
+
 (defn group-by
   "Same as clojure.core/group-by, but with some handy new arities which apply
    custom map & reduce operations to the elements grouped together under the same key."
