@@ -1,7 +1,7 @@
 (ns mate.io
+  #?(:cljs (:require-macros [mate.io]))
   (:require [clojure.string :as str]
-            #?(:clj [clojure.java.io :as io]))
-  #?(:cljs (:require-macros [mate.io])))
+            #?(:clj [clojure.java.io :as io])))
 
 (defn- resource-path
   "Returns the path of a resource.

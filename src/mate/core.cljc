@@ -1,7 +1,9 @@
 (ns mate.core
   #?(:cljs (:require-macros mate.core))
   (:refer-clojure :exclude [group-by])
-  (:require [clojure.core :as cc]))
+  (:require [clojure.core :as cc])
+  #?(:clj (:import (java.util.regex Matcher
+                                    Pattern))))
 
 (defmacro implies
   "`(implies x y)` expands to `(or (not x) y)` while being more
@@ -41,23 +43,23 @@
 #?(:cljs
    (defn re-with-flags
      "Returns a new RegEx with additional flags."
-     [^js re flags]
+     [^js/RegExp re flags]
      (js/RegExp. (.-source re) (str (.-flags re) flags))))
 
 #?(:clj
    (defn re-find-indexed
      "Same as re-find, but returns a pair `[index match]` when there is a match."
-     ([^java.util.regex.Matcher m]
+     ([^Matcher m]
       (when (.find m)
         (re-groups-indexed m)))
-     ([^java.util.regex.Pattern re s]
+     ([^Pattern re s]
       (let [m (re-matcher re s)]
         (re-find-indexed m))))
 
    :cljs
    (defn re-find-indexed
      "Same as re-find, but returns a pair `[index match]` when there is a match."
-     [^js re s]
+     [^js/RegExp re s]
      (when-some [^array m (.exec re s)]
        (let [group-count (count m)]
          (if (== group-count 1)
