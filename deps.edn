@@ -1,28 +1,34 @@
 {:paths   ["src"]
+
  :deps    {} ;; This part intentionally left empty
- :aliases {:dev      {:extra-deps {org.clojure/clojure       {:mvn/version "1.11.1"}
-                                   org.clojure/clojurescript {:mvn/version "1.11.60"}}}
+
+ :aliases {:dev      {:extra-deps {org.clojure/clojure       {:mvn/version "1.12.3"}
+                                   org.clojure/clojurescript {:mvn/version "1.12.42"}}}
            :test     {:extra-paths ["test" "test-resource"]
                       :extra-deps  {lambdaisland/kaocha           {:mvn/version "1.71.1119"}
                                     lambdaisland/kaocha-cljs      {:mvn/version "1.4.130"}
                                     lambdaisland/kaocha-junit-xml {:mvn/version "1.17.101"}
                                     org.clojure/test.check        {:mvn/version "1.1.1"}
-                                    org.clojure/data.json         {:mvn/version "2.4.0"}}}
+                                    org.clojure/data.json         {:mvn/version "2.5.1"}}}
 
-           ; clojure -M:outdated --upgrade
-           :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.1.946"}}
+           ;; clojure -M:outdated --upgrade
+           :outdated {:extra-deps {com.github.liquidz/antq {:mvn/version "2.11.1276"}}
                       :main-opts  ["-m" "antq.core"]}
 
-           :depstar  {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
-                      :exec-fn      hf.depstar/jar
-                      :exec-args    {:sync-pom    true
-                                     :group-id    "taipei.404"
-                                     :artifact-id "mate"
-                                     :version     "0.0.9"
-                                     :jar         "mate.jar"}}}}
-;; Memo for deploying a new release:
-;; - Change the version above, then build the jar:
-;;     clojure -X:depstar
-;; - add a tag "v0.x.y" to the latest commit and push to repo
-;; - deploy:
-;;     mvn deploy:deploy-file -Dfile=mate.jar -DpomFile=pom.xml -DrepositoryId=clojars -Durl=https://clojars.org/repo/
+           :jar  {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.303"}}
+                  :exec-fn      hf.depstar/jar
+                  :exec-args    {:sync-pom    true
+                                 :group-id    "taipei.404"
+                                 :artifact-id "mate"
+                                 :version     "0.0.9"
+                                 :jar         "mate.jar"}}
+
+           :deploy {:extra-deps {slipset/deps-deploy {:mvn/version "0.2.2"}}
+                    :exec-fn    deps-deploy.deps-deploy/deploy
+                    :exec-args  {:installer :remote
+                                 :artifact "mate.jar"}}}}
+
+;; Memo for making a new release:
+;; 1. Change the version "0.x.y" above, commit it, push it to Github.
+;; 2. In Github's website, create a release.
+;;    The tag name should be in the format "v0.x.y"
