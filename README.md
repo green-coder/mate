@@ -1,4 +1,4 @@
-## Mate [![CircleCI](https://circleci.com/gh/green-coder/mate.svg?style=svg)](https://circleci.com/gh/green-coder/mate)
+## Mate
 
 [![Clojars Project](https://img.shields.io/clojars/v/taipei.404/mate.svg)](https://clojars.org/taipei.404/mate)
 [![Cljdoc badge](https://cljdoc.org/badge/taipei.404/mate)](https://cljdoc.org/d/taipei.404/mate/CURRENT)
