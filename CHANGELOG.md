@@ -1,5 +1,7 @@
 ## Unreleased
 
+## v0.1.0
+
 - New macros `mate.core/apply->`, `mate.core/apply->>` and theirs tests.
 - New function `mate.core/mapcat-indexed` and its tests.
 - New functions `mate.core/partial->`, `mate.core/partial->>` and their tests.
